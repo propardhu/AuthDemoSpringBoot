@@ -38,6 +38,9 @@ dependencies {
 	testImplementation 'org.springframework.security:spring-security-test'
 
 	implementation group: 'io.jsonwebtoken', name: 'jjwt', version: '0.9.1'
+	// https://mvnrepository.com/artifact/org.springframework.security/spring-security-core
+	implementation group: 'org.springframework.security', name: 'spring-security-core', version: '5.7.2'
+
 }
 
 tasks.named('test') {

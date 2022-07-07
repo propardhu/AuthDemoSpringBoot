@@ -1,0 +1,9 @@
+package com.pardhu.authdemo.repository;
+
+import com.pardhu.authdemo.domain.Authority;
+import org.springframework.data.mongodb.repository.MongoRepository;
+
+/**
+ * Spring Data MongoDB repository for the {@link Authority} entity.
+ */
+public interface AuthorityRepository extends MongoRepository<Authority, String> {}

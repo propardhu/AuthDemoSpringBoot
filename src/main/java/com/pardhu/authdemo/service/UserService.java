@@ -23,6 +23,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import java.lang.Math;
 /**
  * Service class for managing users.
  */
@@ -76,7 +77,7 @@ public class UserService {
             .findOneByEmailIgnoreCase(mail)
             .filter(User::isActivated)
             .map(user -> {
-                user.setResetKey("admin");
+                user.setResetKey(String.valueOf(Math.random() * 1000));
                 user.setResetDate(Instant.now());
                 userRepository.save(user);
                 return user;
@@ -115,7 +116,7 @@ public class UserService {
         // new user is not active
         newUser.setActivated(false);
         // new user gets registration key
-        newUser.setActivationKey("admin");
+        newUser.setActivationKey(String.valueOf(Math.random() * 1000));
         Set<Authority> authorities = new HashSet<>();
         authorityRepository.findById(AuthoritiesConstants.USER).ifPresent(authorities::add);
         newUser.setAuthorities(authorities);
@@ -146,9 +147,9 @@ public class UserService {
         } else {
             user.setLangKey(userDTO.getLangKey());
         }
-        String encryptedPassword = passwordEncoder.encode("admin");
+        String encryptedPassword = passwordEncoder.encode(String.valueOf(Math.random() * 1000));
         user.setPassword(encryptedPassword);
-        user.setResetKey("admin");
+        user.setResetKey(String.valueOf(Math.random() * 1000));
         user.setResetDate(Instant.now());
         user.setActivated(true);
         if (userDTO.getAuthorities() != null) {
